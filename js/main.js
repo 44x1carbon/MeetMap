@@ -21,7 +21,7 @@ var getParam = function(){
     return paramArray;
 
   }
-  return [];
+  return null;
 }
 
 var app = new Vue({
@@ -103,10 +103,11 @@ var app = new Vue({
   created: function(){
     var self = this;
     var param = getParam();
+    // console.log(param);
     if( param === null || param['roomKey'] === null){
       self.roomKey = Math.random().toString(10).slice(-4);
     } else {
-      console.log(param['roomKey']);
+      // console.log(param['roomKey']);
       self.roomKey = param['roomKey'];
     }
 
@@ -145,7 +146,7 @@ var app = new Vue({
           self.send(coords.latitude,coords.longitude);
         });
       }
-    },1009);
+    },1000);
 
     datastore.on('send',function(sent){
       var value = sent.value;
