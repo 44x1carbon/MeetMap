@@ -100,8 +100,9 @@ var app = new Vue({
   },
   watch: {
     "roomKey" : function(val,oldval){
-      var a = window.location.href;
-      window.history.pushState(null,null,a + val);
+      // var a = window.location.href;
+      // window.history.pushState(null,null,a + val);
+      // new media_line_me.LineButton({"pc":true,"lang":"ja","type":"a","text":"","withUrl":true});
     }
   },
   created : function(){
@@ -129,7 +130,7 @@ var app = new Vue({
       var value = sent.value;
       if( self.roomKey == value.roomKey && self.name != value.name){
         self.member[value.name] = value;
-        console.log(self.member);
+        // console.log(self.member);
       }
     });
   }
