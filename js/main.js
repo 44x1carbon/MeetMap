@@ -4,6 +4,7 @@ var geo = navigator.geolocation;
 
 var getParam = function(){
   var urlParam = location.search.substring(1);
+
   // URLにパラメータが存在する場合
   if(urlParam) {
     // 「&」が含まれている場合は「&」で分割
@@ -17,11 +18,10 @@ var getParam = function(){
       var paramItem = param[i].split('=');
       paramArray[paramItem[0]] = paramItem[1];
     }
-
     return paramArray;
 
   }
-  return null;
+  return [];
 }
 
 var app = new Vue({
@@ -96,7 +96,7 @@ var app = new Vue({
   watch: {
     'roomKey': function(val,oldval) {
       var baseUrl = location.host;
-      var url = baseUrl + '/meetmap/?roomkey=' + val;
+      var url = baseUrl + '/meetmap/?roomKey=' + val;
       this.lineUrl = 'http://line.me/R/msg/text/?' + encodeURI(url);
     }
   },
@@ -106,6 +106,7 @@ var app = new Vue({
     if( param === null || param['roomKey'] === null){
       self.roomKey = Math.random().toString(10).slice(-4);
     } else {
+      console.log(param['roomKey']);
       self.roomKey = param['roomKey'];
     }
 
