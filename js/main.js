@@ -122,13 +122,13 @@ var app = new Vue({
         geo.getCurrentPosition(function(geo){
           var coords  = geo.coords;
           self.createMap(coords.latitude,coords.longitude);
-          for (var i = 0; i < 5; i++) {
-            self.setMember({
-              name: 'mem' + i,
-              lat: coords.latitude,
-              long: coords.longitude,
-            });
-          }
+          // for (var i = 0; i < 5; i++) {
+          //   self.setMember({
+          //     name: 'mem' + i,
+          //     lat: coords.latitude,
+          //     long: coords.longitude,
+          //   });
+          // }
         });
       } else {
         alert( "あなたの端末では、現在位置を取得できません。" ) ;
