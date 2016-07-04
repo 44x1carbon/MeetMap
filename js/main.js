@@ -1,12 +1,9 @@
 var milkcocoa = new MilkCocoa('uniiq6auhuk.mlkcca.com');
-
 var datastore = milkcocoa.dataStore('hoge');
-
 var geo = navigator.geolocation;
 
 var getParam = function(){
   var urlParam = location.search.substring(1);
-  console.log(urlParam);
   // URLにパラメータが存在する場合
   if(urlParam) {
     // 「&」が含まれている場合は「&」で分割
@@ -29,108 +26,132 @@ var getParam = function(){
 
 var app = new Vue({
   el: '#app',
-  data : {
-    roomKey : null,
-    name:null,
-    member : {},
-    map:null,
-    markers : {},
+  data: {
+    roomKey: '',
+    name: '',
+    lineUrl: 'hoge',
+    map: null,
+    mymarker: null,
+    markerIcons: [],
+    members: {},
+    memberList:[],
+    iconIdx: 0,
+    myimage: "",
   },
-  methods :{
-    changeUrl : function(){
-
+  methods: {
+    isSend: function(){
+      return this.name != '';
     },
-    isSend : function(){
-      if(this.roomKey == null && this.name == null){
-        return false;
-      } else {
-        return true;
+    createMap:function(_lat,_long){
+      this.map = L.map('map').setView([_lat,_long], 19);
+      map = this.map;
+      var tileLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+        attribution: '© <a href="http://osm.org/copyright">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+        maxZoom: 19
+      });
+      tileLayer.addTo(map);
+      var icon = this.getIcon();
+      this.myimage = this.getIconImg(icon);
+      this.mymarker = L.marker([_lat,_long],{icon: icon }).addTo(map);
+    },
+    updateMap: function(_lat,_long){
+      var mymarker = this.mymarker;
+      mymarker.setLatLng([_lat,_long]);
+    },
+    setMember: function(member){
+      var map = this.map;
+      var members = this.members;
+      if(!(member.name in members)){
+        members[member.name] = member;
+        var icon = this.getIcon();
+        this.memberList.push(member);
+        members[member.name]['img'] = this.getIconImg(icon);
+        members[member.name]['maker'] = L.marker([member.lat,member.long],{icon: icon }).addTo(this.map);
       }
     },
-    sendPos : function(_lat,_long){
+    updateMember: function(member){
+      var members = this.members;
+      if(!(member.name in members)){
+        members[member.name]['maker'].setLatLng([member.lat,member.long]);
+      }
+    },
+    getIcon: function(){
+      if(this.iconIdx + 1 > this.markerIcons.length){
+        this.iconIdx = 0;
+      }
+      return this.markerIcons[this.iconIdx++];
+    },
+    getIconImg: function(icon){
+      return icon.options.iconUrl;
+    },
+    send: function(_lat,_long){
       datastore.send({
-        name : this.name,
-        roomKey : this.roomKey,
-        lat : _lat,
-        long : _long
-      },function(err,data){
+        name: this.name,
+        roomKey: this.roomKey,
+        lat: _lat,
+        long: _long
       });
-    },
-    renderMap : function(_lat,_long){
-      var myLatlng = new google.maps.LatLng(_lat,_long);
-      var myOptions = {
-          zoom: 16,
-          center: myLatlng,
-          mapTypeId: google.maps.MapTypeId.ROADMAP,
-          scrollwheel: false
-      };
-      if(this.map == null){
-        this.map = new google.maps.Map(document.getElementById("gmap"), myOptions);
-      }
-      var markers = this.markers;
-      console.log(markers);
-      markers[this.name] = new google.maps.Marker({
-          position: myLatlng,
-          map: this.map,
-          title: this.name
-      });
-      var infoWindows = {};
-      Object.keys(this.member).forEach(function(key){
-        var member = this.member[key];
-        var latlng = new google.maps.LatLng(member.let,member.long);
-        console.log(member == null);
-        if(member == null){
-          markers[member.name] = new google.maps.Marker({
-              position: latlng,
-              map: this.map,
-              title: member.name
-          });
-          infoWindows[member.name] = new google.maps.InfoWindow({
-            content: '<div>' + member.name + '</div>'
-          });
-          infoWindows[member.name].open(this.map,markers[member.name]);
-          console.log('null');
-        } else {
-          console.log(markers[member.name]);
-          markers[member.name].setPosition(latlng);
-          infoWindows[member.name].open(this.map,markers[member.name]);
-        }
-      }.bind(this));
     }
   },
   watch: {
-    "roomKey" : function(val,oldval){
-      // var a = window.location.href;
-      // window.history.pushState(null,null,a + val);
-      // new media_line_me.LineButton({"pc":true,"lang":"ja","type":"a","text":"","withUrl":true});
+    'roomKey': function(val,oldval) {
+      var baseUrl = location.host;
+      var url = baseUrl + '/meetmap/?roomkey=' + val;
+      this.lineUrl = 'http://line.me/R/msg/text/?' + encodeURI(url);
     }
   },
-  created : function(){
+  created: function(){
     var self = this;
-    // self.roomKey = getParam()['roomKey'];
-    if( geo ){
-      geo.getCurrentPosition(function(geo){
-        var coords  = geo.coords;
-        self.renderMap(coords.latitude,coords.longitude);
-      });
+    var param = getParam();
+    if( param === null || param['roomKey'] === null){
+      self.roomKey = Math.random().toString(10).slice(-4);
     } else {
-      alert( "あなたの端末では、現在位置を取得できません。" ) ;
+      self.roomKey = param['roomKey'];
     }
+
+    var iconImgs = ['marker_blue.png','marker_green.png','marker_orange.png','marker_red.png','marker_yellow.png','marker_cyan.png'];
+    iconImgs.forEach(function(iconImg){
+      self.markerIcons.push(L.icon({
+        iconUrl: 'img/' + iconImg,
+        iconSize: [23.25 , 39],
+      }));
+    });
+
+    // if(self.isSend()){
+      if(geo){
+        geo.getCurrentPosition(function(geo){
+          var coords  = geo.coords;
+          self.createMap(coords.latitude,coords.longitude);
+          for (var i = 0; i < 5; i++) {
+            self.setMember({
+              name: 'mem' + i,
+              lat: coords.latitude,
+              long: coords.longitude,
+            });
+          }
+        });
+      } else {
+        alert( "あなたの端末では、現在位置を取得できません。" ) ;
+      }
+    // }
+
+
     setInterval(function(){
       if(self.isSend()){
         geo.getCurrentPosition(function(geo){
           var coords  = geo.coords;
-          self.sendPos(coords.latitude,coords.longitude);
-          self.renderMap(coords.latitude,coords.longitude);
+          self.updateMap(coords.latitude,coords.longitude);
+          self.send(coords.latitude,coords.longitude);
         });
       }
-    },1000);
+    },1009);
 
     datastore.on('send',function(sent){
       var value = sent.value;
       if( self.roomKey == value.roomKey && self.name != value.name){
-        self.member[value.name] = value;
-        // console.log(self.member);
+        self.setMember(value);
+        self.updateMember(value);
+        console.log(self.members);
       }
     });
   }

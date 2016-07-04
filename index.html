@@ -6,42 +6,65 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title></title>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-    <style media="screen">
-      #gmap{
-        background-image: url('img/ajax-loader.gif');
-        background-size: 32px 32px;
-        background-position: center center;;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-      }
-    </style>
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="lib/leaflet/leaflet.css" />
+    <link rel="stylesheet" href="css/main.css" />
   </head>
   <body>
     <div id="app">
-      <h1>MeetMap</h1>
-      <div id="gmap" style="width: 590px; height: 400px;"></div>
-      <div class="input-group">
-        <span class="input-group-addon" id="basic-addon1">名前</span>
-        <input type="text" class="form-control" placeholder="やまだ" v-model="name">
+      <h1 class="title"><span class="glyphicon glyphicon-map-marker"></span>MeetMap</h1>
+
+      <div id="map"></div>
+      <div class="row member-list">
+        <div class="col-xs-4 member">
+          <div class="icon-image">
+            <img src="{{ './' + myimage }}" alt="...">
+          </div>
+          <div class="name">
+            自分
+          </div>
+        </div>
+
+        <div class="col-xs-4 member" v-for="member in memberList">
+          <div class="icon-image">
+            <img src="{{ './' + member.img }}" alt="...">
+          </div>
+          <div class="name">
+            {{ member.name }}
+          </div>
+        </div>
       </div>
-      <div class="text-danger"  v-show="!name">名前を入力してください。</div>
-      <div class="input-group">
-        <span class="input-group-addon" id="basic-addon1">キー</span>
-        <input type="text" class="form-control" placeholder="1234" v-model="roomKey">
+
+
+
+      <div class="caption">
+        <p>
+          友人と合流するためのアプリです。<br>
+          LINE以外で参加してもらう場合はキーを伝えてください。
+        </p>
       </div>
-      <a v-bind:href="lineUrl"><img src="./img/linebutton_82x20.png" width="82px" height="20px" alt="LINEで送る" /></a>
+      <div class="footer">
+        <a v-bind:href="lineUrl"><img src="./img/linebutton_82x20.png" width="82px" height="20px" alt="LINEで送る" /></a>
+        <div class="input-group">
+          <span class="input-group-addon" id="basic-addon1">名前</span>
+          <input type="text" class="form-control" placeholder="やまだ" v-model="name">
+        </div>
+        <!-- <div class="text-danger"  v-show="!name">名前を入力してください。</div> -->
+        <div class="input-group">
+          <span class="input-group-addon" id="basic-addon1">キー</span>
+          <input type="text" class="form-control" placeholder="1234" v-model="roomKey">
+        </div>
+      </div>
     </div>
 
 
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="lib/jquery/dist/jquery.min.js"></script>
+    <script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="https://cdn.mlkcca.com/v2.0.0/milkcocoa.js"></script>
-    <script src='http://maps.google.com/maps/api/js?key=AIzaSyBRzEMpi8-faGJ1IZSPzabEZnRfm8VYGlI&sensor=true'></script>
+    <script src="lib/leaflet/leaflet.js"></script>
     <script type="text/javascript" src="//media.line.me/js/line-button.js?v=20140411" ></script>
-    <script src="node_modules/vue/dist/vue.min.js"></script>
-    <script src="js/main2.js"></script>
+    <script src="lib/vue/dist/vue.min.js"></script>
+    <script src="js/main.js"></script>
   </body>
 </html>
