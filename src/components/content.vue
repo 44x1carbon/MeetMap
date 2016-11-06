@@ -27,7 +27,6 @@ import chat from './chat.vue'
 import memberList from './member-list.vue'
 import modal from './modal.vue'
 
-import { addMember, changePosition } from '../vuex/actions.js'
 import { members, center } from '../vuex/getters.js'
 
 export default {
@@ -35,25 +34,7 @@ export default {
     getters: {
       members,
       center
-    },
-    actions: {
-      addMember,
-      changePosition
     }
-  },
-  created() {
-    this.addMember('oBg1Gi6WSyut4qLFAAAA', 'hoge',{
-            lat: 51.505,
-            lng: -0.09
-    })
-    this.addMember('zzl4N9HTUXgW4GFZAAAA', 'fuga',{
-            lat: 51.506,
-            lng: -0.09
-    })
-    this.addMember('Bqu5vGx_SqpPWITEXAAAB', 'piyo',{
-            lat: 51.504,
-            lng: -0.09
-    })
   },
   components: {
     Map,

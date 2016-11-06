@@ -8,27 +8,35 @@
 <script>
 import content from './components/content.vue'
 import myHeader from './components/header.vue'
-
+import { addMember, setCenter } from './vuex/actions.js'
+import { tracking, self } from './vuex/getters.js'
 
 export default {
-  data () {
-    return {
-      markers: [
-        {
-          position: {
-            lat: 51.505,
-            lng: -0.09
-          },
-          icon: {
-            iconUrl: 'https://pbs.twimg.com/profile_images/581025665727655936/9CnwZZ6j.jpg'
-          }
-        }
-      ],
-      center: {
-            lat: 51.505,
-            lng: -0.09
-      }
+   vuex: {   
+    actions: {
+      addMember,
+      setCenter  
+    },
+    getters: {
+      self
     }
+  },
+  created() {    
+    this.$store.watch(tracking,(val) => { 
+      if(val) this.setCenter(this.self.position)
+    })
+    this.addMember('oBg1Gi6WSyut4qLFAAAA', 'hoge',{
+            lat: 51.505,
+            lng: -0.09
+    })
+    this.addMember('zzl4N9HTUXgW4GFZAAAA', 'fuga',{
+            lat: 51.506,
+            lng: -0.09
+    })
+    this.addMember('Bqu5vGx_SqpPWITEXAAAB', 'piyo',{
+            lat: 51.504,
+            lng: -0.09
+    })
   },
   components: {
     content,

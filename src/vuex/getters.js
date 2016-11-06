@@ -9,3 +9,7 @@ export const center = (state) => {
 export const tracking = (state) => {
 	return state.tracking
 }
+
+export const self = (state) => {
+	return state.self
+}
