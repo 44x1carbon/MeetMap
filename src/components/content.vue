@@ -4,6 +4,7 @@
 			<Marker v-for="member in members"
 			:position.sync='member.position' :icon="member.icon"></Marker>
 		</Map>
+    <tracking-btn></tracking-btn>
     <menu></menu>
     <side pos="left">
       <i class="material-icons small" slot="icon">chat</i>
@@ -21,6 +22,7 @@
 import { Map, Marker } from '../lib/vue-leaflet'
 import side from './side.vue'
 import menu from './menu.vue'
+import trackingBtn from './tracking-btn.vue'
 import chat from './chat.vue'
 import memberList from './member-list.vue'
 import modal from './modal.vue'
@@ -60,6 +62,7 @@ export default {
     menu,
     chat,
     memberList,
+    trackingBtn
   }
 }
 </script>
