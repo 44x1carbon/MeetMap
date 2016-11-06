@@ -4,16 +4,21 @@
 			Member List
 		</div>
 		<div class="member-list-body">
-			<member></member>
-			<member></member>
-			<member></member>
+			<member v-for="member in members" :member="member"></member>
 		</div>
 	</div>
 </template>
 
 <script>
 import member from './member.vue'
+import { members } from '../vuex/getters.js' 
+
 export default {
+	vuex: {
+		getters: {
+			members
+		}
+	},
 	components: {
 		member
 	}
