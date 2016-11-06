@@ -10,5 +10,11 @@ export default {
 	},
 	[types.SET_CENTER](state, position) {
 		state.center = position
+	},
+	[types.TOGGLE_TRACKING](state) {
+		state.tracking = !state.tracking
+	},
+	[types.CHANGE_TRACKING](state, bool) {
+		state.tracking = bool
 	}
 }

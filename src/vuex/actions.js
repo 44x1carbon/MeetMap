@@ -12,3 +12,12 @@ export const changePosition = ({dispatch}, id, position) => {
 export const setCenter = ({dispatch}, position) => {
 	dispatch(types.SET_CENTER, position)
 }
+
+export const toggleTracking = ({dispatch}) => {
+	dispatch(types.TOGGLE_TRACKING)
+}
+
+export const changeTracking = ({dispatch}, bool) => {
+	dispatch(types.CHANGE_TRACKING, bool)
+}
+

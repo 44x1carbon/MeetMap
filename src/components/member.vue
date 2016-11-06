@@ -1,5 +1,5 @@
 <template>
-	<div class="member" @click="setCenter(member.position)">
+	<div class="member" @click="memberClick">
 		<div class="member-face">
 			<img :src="member.icon.iconUrl" alt="">
 		</div>
@@ -8,13 +8,20 @@
 </template>
 
 <script>
-import { setCenter } from '../vuex/actions.js'
+import { setCenter, changeTracking } from '../vuex/actions.js'
 
 export default {
 	props: [ 'member' ],
 	vuex: {
 		actions: {
-			setCenter
+			setCenter,
+			changeTracking
+		}
+	},
+	methods: {
+		memberClick() {
+			this.changeTracking(false)
+			this.setCenter(this.member.position)
 		}
 	}
 }

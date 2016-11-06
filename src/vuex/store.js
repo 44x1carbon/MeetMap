@@ -5,16 +5,17 @@ import mutations from './mutations.js'
 Vue.use(vuex)
 
 const state = {
-	members: [],
-  self: {
+	members: [],    //ルームに参加しているメンバ-
+  self: {         //自分の情報
     position: {},
     icon: {},
     name: ''
   },
-  center: {
+  center: {       //地図の中心
     lat: 0,
     lng: 0
-  }
+  },
+  tracking: true, //追跡するか
 }
 
 export default new vuex.Store({
