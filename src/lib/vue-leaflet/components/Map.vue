@@ -18,12 +18,10 @@ Vue.use(DeferredReady)
 const props = {
 	center: {
     required: true,
-    twoWay: true,
     type: Object
   },
 	zoom: {
     required: false,
-    twoWay: true,
     type: Number
   }
 }

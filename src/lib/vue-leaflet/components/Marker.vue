@@ -5,12 +5,10 @@ import _ from 'lodash'
 
 const props = {
 	icon: {
-		type: Object,
-    	twoWay: true
+		type: Object
 	},
 	position: {
-		type: Object,
-		twoWay: true,
+		type: Object
 	}
 }
 
