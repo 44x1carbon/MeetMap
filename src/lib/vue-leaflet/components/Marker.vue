@@ -32,7 +32,28 @@ export default mapComponent.extend({
 			let icon = L.icon(options.icon)
 			return L.marker([lat, lng], {icon} ).addTo(map)
 		}
+	},
+	watch: {
+		position: {
+			deep: true,
+			handler(val, old) {
+				const {lat,lng} = val
+				this.$markerObject.setLatLng([lat, lng])
+			}
+		}
+	},
+	events: {
+		'ready-map'(map){
+			this.$map = map
+			console.log('hoge')
+			if( this.$markerObject ){
+				const _props =  _.mapValues(props, (value, prop) => this[prop])		
+				const options = _.pickBy(_props, (value, key) => {
+					return value !== undefined
+				})
+				this.$markerObject = this.createMarker(options, this.$map)
+			}
+		}
 	}
-	
 })
 </script>
