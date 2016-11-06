@@ -1,8 +1,8 @@
 <template>
 	<div class="card blue-grey darken-1">
 		<Map :zoom="18" :center="center">
-			<Marker v-for="marker in markers"
-			:position.sync='marker.position' :icon="marker.icon"></Marker>
+			<Marker v-for="member in members"
+			:position.sync='member.position' :icon="member.icon"></Marker>
 		</Map>
     <menu></menu>
     <side pos="left">
@@ -18,7 +18,6 @@
 </template>
 
 <script>
-import jdenticon from 'jdenticon'
 import { Map, Marker } from '../lib/vue-leaflet'
 import side from './side.vue'
 import menu from './menu.vue'
@@ -26,26 +25,33 @@ import chat from './chat.vue'
 import memberList from './member-list.vue'
 import modal from './modal.vue'
 
+import { addMember, changePosition } from '../vuex/actions.js'
+import { members, center } from '../vuex/getters.js'
+
 export default {
-  data () {
-    return {
-      markers: [
-        {
-          position: {
-            lat: 51.505,
-            lng: -0.09
-          },
-          icon: {
-            iconUrl: 'data:image/svg+xml;utf8,' + jdenticon.toSvg('ff8adece0631821959f443c9d956fc39',40),
-            iconSize: [40, 40]
-          }
-        }
-      ],
-      center: {
-            lat: 51.505,
-            lng: -0.09
-      }
+  vuex: {
+    getters: {
+      members,
+      center
+    },
+    actions: {
+      addMember,
+      changePosition
     }
+  },
+  created() {
+    this.addMember('oBg1Gi6WSyut4qLFAAAA', 'hoge',{
+            lat: 51.505,
+            lng: -0.09
+    })
+    this.addMember('zzl4N9HTUXgW4GFZAAAA', 'fuga',{
+            lat: 51.506,
+            lng: -0.09
+    })
+    this.addMember('Bqu5vGx_SqpPWITEXAAAB', 'piyo',{
+            lat: 51.504,
+            lng: -0.09
+    })
   },
   components: {
     Map,

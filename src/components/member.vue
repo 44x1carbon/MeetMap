@@ -1,11 +1,24 @@
 <template>
-	<div class="member">
+	<div class="member" @click="setCenter(member.position)">
 		<div class="member-face">
-			<svg data-jdenticon-hash="ff8adece0631821959f443c9d956fc39"></svg>
+			<img :src="member.icon.iconUrl" alt="">
 		</div>
-		<div class="member-name">ほげ男</div>
+		<div class="member-name">{{ member.name }}</div>
 	</div>
 </template>
+
+<script>
+import { setCenter } from '../vuex/actions.js'
+
+export default {
+	props: [ 'member' ],
+	vuex: {
+		actions: {
+			setCenter
+		}
+	}
+}
+</script>
 
 <style scoped>
 .member {
