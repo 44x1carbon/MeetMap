@@ -56,6 +56,12 @@ export default {
 		}).addTo(this.mapObject)
 		this.$broadcast('ready-map',this.mapObject)
 	},
+	watch: {
+		center(val) {
+			let {lat, lng} = val
+			this.mapObject.panTo([lat, lng])
+		}
+	},
 	events: eventListeners,
 	props
 }

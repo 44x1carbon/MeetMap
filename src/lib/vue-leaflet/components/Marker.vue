@@ -45,7 +45,6 @@ export default mapComponent.extend({
 	events: {
 		'ready-map'(map){
 			this.$map = map
-			console.log('hoge')
 			if( this.$markerObject ){
 				const _props =  _.mapValues(props, (value, prop) => this[prop])		
 				const options = _.pickBy(_props, (value, key) => {
