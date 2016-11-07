@@ -3,12 +3,12 @@
 		<div class="member-face">
 			<img :src="member.icon.iconUrl" alt="">
 		</div>
-		<div class="member-name">{{ member.name }}</div>
+		<div class="member-name">{{ member.name }}(自分)</div>
 	</div>
 </template>
 
 <script>
-import { setCenter, changeTracking, toggleMemberShow } from '../vuex/actions.js'
+import { setCenter, changeTracking, toggleMemberShow, toggleTracking } from '../vuex/actions.js'
 
 export default {
 	props: [ 'member' ],
@@ -16,7 +16,8 @@ export default {
 		actions: {
 			setCenter,
 			changeTracking,
-			toggleMemberShow
+			toggleMemberShow,
+			toggleTracking
 		}
 	},
 	methods: {
@@ -24,6 +25,7 @@ export default {
 			this.changeTracking(false)
 			this.setCenter(this.member.position)
 			this.toggleMemberShow()
+			this.toggleTracking()
 		}
 	}
 }

@@ -21,3 +21,11 @@ export const changeTracking = ({dispatch}, bool) => {
 	dispatch(types.CHANGE_TRACKING, bool)
 }
 
+export const toggleChatShow = ({dispatch}) => {
+	dispatch(types.TOGGLE_CHATSHOW)
+}
+
+export const toggleMemberShow = ({dispatch}) => {
+	dispatch(types.TOGGLE_MEMBERSHOW)
+}
+

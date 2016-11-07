@@ -13,3 +13,11 @@ export const tracking = (state) => {
 export const self = (state) => {
 	return state.self
 }
+
+export const chatShow = (state) => {
+	return state.chatShow
+}
+
+export const memberShow = (state) => {
+	return state.memberShow
+}

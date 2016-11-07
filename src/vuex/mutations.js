@@ -16,5 +16,11 @@ export default {
 	},
 	[types.CHANGE_TRACKING](state, bool) {
 		state.tracking = bool
-	}
+	},
+	[types.TOGGLE_CHATSHOW](state) {
+		state.chatShow = !state.chatShow
+	},
+	[types.TOGGLE_MEMBERSHOW](state) {
+		state.memberShow = !state.memberShow
+	},
 }

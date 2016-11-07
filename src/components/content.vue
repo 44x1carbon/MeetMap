@@ -1,20 +1,17 @@
 <template>
-	<div class="card blue-grey darken-1">
+	<div class="content card blue-grey darken-1">
 		<Map :zoom="18" :center="center">
 			<Marker v-for="member in members"
 			:position.sync='member.position' :icon="member.icon"></Marker>
 		</Map>
     <tracking-btn></tracking-btn>
     <menu></menu>
-    <side pos="left">
-      <i class="material-icons small" slot="icon">chat</i>
-      <chat></chat>
-    </side>
-    <side pos="right">
-      <i class="material-icons small" slot="icon">group</i>
-      <member-list></member-list>
-    </side>
+    <chat></chat>      
+    <member-list></member-list>
     <modal></modal>
+    <overlay :show="chatShow || memberShow"></overlay>
+    {{ showOverlay }}
+    {{chatShow}}
   </div>	
 </template>
 
@@ -25,16 +22,24 @@ import menu from './menu.vue'
 import trackingBtn from './tracking-btn.vue'
 import chat from './chat.vue'
 import memberList from './member-list.vue'
+import overlay from './overlay.vue'
 import modal from './modal.vue'
 
-import { members, center } from '../vuex/getters.js'
+import { members, center, chatShow, memberShow } from '../vuex/getters.js'
 
 export default {
   vuex: {
     getters: {
       members,
-      center
+      center,
+      chatShow,
+      memberShow
     }
+  },
+  computed: {
+      showOverlay() {
+        return !this.chatShow || !this.memberShow
+      }
   },
   components: {
     Map,
@@ -43,13 +48,14 @@ export default {
     menu,
     chat,
     memberList,
-    trackingBtn
+    trackingBtn,
+    overlay
   }
 }
 </script>
 
 <style scoped>
-	.card {
+	.content.card {
 		height: calc(100% - 56px);
     width: 100%;
 		margin: 0;
