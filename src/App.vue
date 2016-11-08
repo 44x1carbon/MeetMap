@@ -9,7 +9,7 @@
 import content from './components/content.vue'
 import myHeader from './components/header.vue'
 import { addMember, setCenter } from './vuex/actions.js'
-import { tracking, self } from './vuex/getters.js'
+import { trackingMode, self } from './vuex/getters.js'
 
 export default {
    vuex: {   
@@ -22,7 +22,7 @@ export default {
     }
   },
   created() {    
-    this.$store.watch(tracking,(val) => { 
+    this.$store.watch(trackingMode,(val) => { 
       if(val) this.setCenter(this.self.position)
     })
     this.addMember('oBg1Gi6WSyut4qLFAAAA', 'hoge',{

@@ -8,24 +8,22 @@
 </template>
 
 <script>
-import { setCenter, changeTracking, toggleMemberShow, toggleTracking } from '../vuex/actions.js'
+import { setCenter, changeTrackingMode, toggleMemberShow } from '../vuex/actions.js'
 
 export default {
 	props: [ 'member' ],
 	vuex: {
 		actions: {
 			setCenter,
-			changeTracking,
-			toggleMemberShow,
-			toggleTracking
+			changeTrackingMode,
+			toggleMemberShow
 		}
 	},
 	methods: {
 		memberClick() {
-			this.changeTracking(false)
+			this.changeTrackingMode(true)
 			this.setCenter(this.member.position)
 			this.toggleMemberShow()
-			this.toggleTracking()
 		}
 	}
 }

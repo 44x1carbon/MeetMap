@@ -6,8 +6,8 @@ export const center = (state) => {
 	return state.center
 }
 
-export const tracking = (state) => {
-	return state.tracking
+export const trackingMode = (state) => {
+	return state.trackingMode
 }
 
 export const self = (state) => {
@@ -20,4 +20,12 @@ export const chatShow = (state) => {
 
 export const memberShow = (state) => {
 	return state.memberShow
+}
+
+export const goal = (state) => {
+	return state.goal
+}
+
+export const goalSetMode = (state) => {
+	return state.goalSetMode
 }

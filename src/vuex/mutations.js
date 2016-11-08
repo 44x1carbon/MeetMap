@@ -1,4 +1,5 @@
 import * as types from './mutation-types.js'
+import Goal from '../utils/goal.js'
 
 export default {
 	[types.ADD_MEMBER](state, member) {
@@ -11,11 +12,11 @@ export default {
 	[types.SET_CENTER](state, position) {
 		state.center = position
 	},
-	[types.TOGGLE_TRACKING](state) {
-		state.tracking = !state.tracking
+	[types.TOGGLE_TRACKING_MODE](state) {
+		state.trackingMode = !state.trackingMode
 	},
-	[types.CHANGE_TRACKING](state, bool) {
-		state.tracking = bool
+	[types.CHANGE_TRACKING_MODE](state, bool) {
+		state.trackingMode = bool
 	},
 	[types.TOGGLE_CHATSHOW](state) {
 		state.chatShow = !state.chatShow
@@ -23,4 +24,10 @@ export default {
 	[types.TOGGLE_MEMBERSHOW](state) {
 		state.memberShow = !state.memberShow
 	},
+	[types.SET_GOAL](state, position) {
+		state.goal = new Goal(postiion)
+	},
+	[types.TOGGLE_GOAL_SET_MODE](state) {
+		state.setGoal = !state.setGoal
+	}
 }

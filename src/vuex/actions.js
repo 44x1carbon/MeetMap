@@ -13,12 +13,12 @@ export const setCenter = ({dispatch}, position) => {
 	dispatch(types.SET_CENTER, position)
 }
 
-export const toggleTracking = ({dispatch}) => {
-	dispatch(types.TOGGLE_TRACKING)
+export const toggleTrackingMode = ({dispatch}) => {
+	dispatch(types.TOGGLE_TRACKING_MODE)
 }
 
-export const changeTracking = ({dispatch}, bool) => {
-	dispatch(types.CHANGE_TRACKING, bool)
+export const changeTrackingMode = ({dispatch}, bool) => {
+	dispatch(types.CHANGE_TRACKING_MODE, bool)
 }
 
 export const toggleChatShow = ({dispatch}) => {
@@ -27,5 +27,13 @@ export const toggleChatShow = ({dispatch}) => {
 
 export const toggleMemberShow = ({dispatch}) => {
 	dispatch(types.TOGGLE_MEMBERSHOW)
+}
+
+export const setGoal = ({dispatch}, position) => {
+	dispatch(types.SET_GOAL, position)
+}
+
+export const toggleSetGoalMode = ({dispatch}) => {
+	dispatch(types.TOGGLE_GOAL_SET_MODE)
 }
 
