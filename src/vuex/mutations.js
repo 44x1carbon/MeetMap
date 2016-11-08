@@ -24,10 +24,10 @@ export default {
 	[types.TOGGLE_MEMBERSHOW](state) {
 		state.memberShow = !state.memberShow
 	},
-	[types.SET_GOAL](state, position) {
-		state.goal = new Goal(postiion)
+	[types.SET_GOAL](state, position) {		
+		state.goal = new Goal(position)
 	},
 	[types.TOGGLE_GOAL_SET_MODE](state) {
-		state.setGoal = !state.setGoal
+		state.goalSetMode = !state.goalSetMode
 	}
 }

@@ -1,6 +1,7 @@
 <template>
 	<div class="content card blue-grey darken-1">
-		<Map :zoom="18" :center="center">
+		<Map :zoom="18" :center="center" :click="mapClick">
+      <Marker v-if="goal !== null" :position="goal.position" :icon="goal.icon"></Marker>
 			<Marker v-for="member in members"
 			:position.sync='member.position' :icon="member.icon"></Marker>
 		</Map>
@@ -25,7 +26,9 @@ import memberList from './member-list.vue'
 import overlay from './overlay.vue'
 import modal from './modal.vue'
 
-import { members, center, chatShow, memberShow } from '../vuex/getters.js'
+import { members, center, chatShow, memberShow, goal, goalSetMode } from '../vuex/getters.js'
+import { setGoal, toggleGoalSetMode } from '../vuex/actions.js'
+import { posArrToObj } from '../utils/util.js'
 
 export default {
   vuex: {
@@ -33,13 +36,30 @@ export default {
       members,
       center,
       chatShow,
-      memberShow
+      memberShow,
+      goal,
+      goalSetMode,
+    },
+    actions: {
+      setGoal,
+      toggleGoalSetMode
     }
   },
   computed: {
       showOverlay() {
         return !this.chatShow || !this.memberShow
       }
+  },
+  methods: {
+    mapClick(e){
+      console.log(this.goalSetMode)
+      if( this.goalSetMode ) {
+        let pos = posArrToObj(e.latlng)
+        this.setGoal(pos)
+        this.toggleGoalSetMode()
+      }
+      
+    }
   },
   components: {
     Map,

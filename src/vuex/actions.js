@@ -33,7 +33,7 @@ export const setGoal = ({dispatch}, position) => {
 	dispatch(types.SET_GOAL, position)
 }
 
-export const toggleSetGoalMode = ({dispatch}) => {
+export const toggleGoalSetMode = ({dispatch}) => {
 	dispatch(types.TOGGLE_GOAL_SET_MODE)
 }
 

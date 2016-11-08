@@ -9,6 +9,7 @@
 			</div>
 			<div class="member-list-body">
 				<self :member="self"></self>
+				<member v-show="goal !== null" :member="goal"></member>
 				<member v-for="member in members" :member="member"></member>
 			</div>
 		</div>
@@ -20,14 +21,15 @@ import member from './member.vue'
 import Self from './self.vue'
 import { members } from '../vuex/getters.js' 
 import { toggleMemberShow } from '../vuex/actions.js'
-import { memberShow, self } from '../vuex/getters.js'
+import { memberShow, self, goal } from '../vuex/getters.js'
 
 export default {
 	vuex: {
 		getters: {
 			members,
 			memberShow,
-			self
+			self,
+			goal
 		},
 		actions: {
 			toggleMemberShow
