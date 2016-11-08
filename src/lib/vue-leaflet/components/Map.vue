@@ -23,7 +23,10 @@ const props = {
 	zoom: {
     required: false,
     type: Number
-  }
+  },
+	click: {
+		type: Function
+	}
 }
 
 /*子要素が追加された場合*/
@@ -53,6 +56,7 @@ export default {
 			attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 		}).addTo(this.mapObject)
 		this.$broadcast('ready-map',this.mapObject)
+		this.mapObject.on('click',this.click)
 	},
 	watch: {
 		center(val) {
